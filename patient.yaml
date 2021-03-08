@@ -1,0 +1,272 @@
+openapi: "3.0.0"
+info:
+  title: Api
+  description: Patient Api
+  version: 1.0.0
+
+servers:
+  - url: http://api.example.com/v1
+    description: Main (production) server
+
+paths:
+  /patients:
+    post:
+      summary: Create new Patient.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientDetails'
+      responses:
+        '201':
+          $ref: '#/components/schemas/responses/patientCreated'
+    get:
+      summary: Get all patients
+      responses:
+        '200':
+          description: List of patient object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientList'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+        default:
+          description: Unexpected error
+  /patients/{secNumber}:
+    get:
+      summary: Returns a patient by secNumber.
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A patient object.
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/PatientDetails'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+        default:
+          description: Unexpected error
+    put:
+      summary: Update patient by secNumber.
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePatient'
+      responses:
+        '200':
+            $ref: '#/components/schemas/responses/patientUpdated'
+        '400':
+            $ref: '#/components/schemas/responses/notFound'
+        '404':
+            $ref: '#/components/schemas/responses/badRequest'
+        default:
+          description: Unexpected error
+  /patients/{secNumber}/examinations:
+    post:
+      summary: Create patient examination by secNumber.
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Examination'
+      responses:
+        '201':
+          $ref: '#/components/schemas/responses/examinationCreated'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+    get:
+      summary: Get patient examinations by secNumber
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of examination object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExaminationList'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+
+  /patients/{secNumber}/examinations/{eye}:
+    put:
+      summary: Update patient examination by secNumber and eyeside composite key.
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+        - name: eye
+          in: path
+          required: true
+          description: Eyeside of the patients LEFT or RIGHT
+          schema:
+            $ref: '#components/schemas/EyeSide'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Examination'
+      responses:
+        '200':
+          $ref: '#/components/schemas/responses/examinationUpdated'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+    get:
+      summary: Get examination by secNumber and eyeSide composite key.
+      parameters:
+        - name: secNumber
+          in: path
+          required: true
+          description: The secNumber of the patient to return.
+          schema:
+            type: string
+        - name: eye
+          in: path
+          required: true
+          description: Eyeside of the patients LEFT or RIGHT
+          schema:
+            $ref: '#components/schemas/EyeSide'
+      responses:
+        '200':
+          description: Examination object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Examination'
+        '400':
+          $ref: '#/components/schemas/responses/notFound'
+        '404':
+          $ref: '#/components/schemas/responses/badRequest'
+
+components:
+  responses:
+    examinationCreated:
+      description:  Patient examination created!
+    patientCreated:
+      description: Patient created!
+    patientUpdated:
+      description: Patient updated!
+    examinationUpdated:
+      description: Patient examination updated!
+    ok:
+      description: Status ok!
+    notFound:
+      description: A patient with the specified secnumber was not found!
+    badRequest:
+      description: The specified patient secnumber is nul!
+  schemas:
+    Patient:
+      properties:
+        secNumber:
+          type: string
+        name:
+          type: string
+    PatientDetails:
+      properties:
+        secNumberId:
+          type: string
+        name:
+          type: string
+        eyeColor:
+          type: string
+        hairColor:
+          type: string
+        birthDate:
+          type: string
+          format: datetime
+      required:
+        - secNumberId
+        - name
+        - eyeColor
+        - hairColor
+        - birthDate
+    UpdatePatient:
+      properties:
+        name:
+          type: string
+        eyeColor:
+          type: string
+        hairColor:
+          type: string
+        birthDate:
+          type: string
+          format: datetime
+      required:
+        - name
+        - eyeColor
+        - hairColor
+        - birthDate
+    PatientList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Patient'
+    ExaminationList:
+        type: array
+        items:
+          $ref: '#/components/schemas/Examination'
+    Examination:
+      properties:
+        eyeAxis:
+          type: integer
+        cylinder:
+          type: number
+        sphere:
+          type: number
+        patientId:
+          type: integer
+        eyeSide:
+          $ref: '#components/schemas/EyeSide'
+    EyeSide:
+      type: string
+      enum: [ LEFT, RIGHT ]
+
+
+
+
+
+  

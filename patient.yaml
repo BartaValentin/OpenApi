@@ -200,12 +200,6 @@ components:
     badRequest:
       description: The specified patient secnumber is nul!
   schemas:
-    Patient:
-      properties:
-        secNumber:
-          type: string
-        name:
-          type: string
     PatientDetails:
       properties:
         secNumberId:
@@ -244,7 +238,7 @@ components:
     PatientList:
       type: array
       items:
-        $ref: '#/components/schemas/Patient'
+        $ref: '#/components/schemas/PatientDetails'
     ExaminationList:
         type: array
         items:

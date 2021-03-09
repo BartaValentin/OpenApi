@@ -257,7 +257,7 @@ components:
           $ref: '#components/schemas/EyeSide'
     EyeSide:
       type: string
-      enum: [ LEFT, RIGHT, BOTH ]
+      enum: [ LEFT, RIGHT ]
 
 
 

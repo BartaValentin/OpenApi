@@ -31,9 +31,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/PatientList'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
         default:
           description: Unexpected error
   /patients/{secNumber}:
@@ -54,9 +54,9 @@ paths:
               schema:
                   $ref: '#/components/schemas/PatientDetails'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
         default:
           description: Unexpected error
     put:
@@ -78,9 +78,9 @@ paths:
         '200':
             $ref: '#/components/schemas/responses/patientUpdated'
         '400':
-            $ref: '#/components/schemas/responses/notFound'
-        '404':
             $ref: '#/components/schemas/responses/badRequest'
+        '404':
+            $ref: '#/components/schemas/responses/notFound'
         default:
           description: Unexpected error
   /patients/{secNumber}/examinations:
@@ -103,9 +103,9 @@ paths:
         '201':
           $ref: '#/components/schemas/responses/examinationCreated'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
     get:
       summary: Get patient examinations by secNumber
       parameters:
@@ -123,9 +123,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExaminationList'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
 
   /patients/{secNumber}/examinations/{eye}:
     put:
@@ -153,9 +153,9 @@ paths:
         '200':
           $ref: '#/components/schemas/responses/examinationUpdated'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
     get:
       summary: Get examination by secNumber and eyeSide composite key.
       parameters:
@@ -179,9 +179,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Examination'
         '400':
-          $ref: '#/components/schemas/responses/notFound'
-        '404':
           $ref: '#/components/schemas/responses/badRequest'
+        '404':
+          $ref: '#/components/schemas/responses/notFound'
 
 components:
   responses:

@@ -1,5 +1,7 @@
 package openapi.patient.models;
 
+// teszt komment
+
 public class Examination {
 
     private Long ExaminationId;

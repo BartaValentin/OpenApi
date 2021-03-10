@@ -182,7 +182,7 @@ paths:
 components:
   responses:
     examinationCreated:
-      description:  Patient examination created!
+      description: Patient examination created!
     patientCreated:
       description: Patient created!
     patientUpdated:

@@ -1,20 +1,35 @@
 package openapi.patient.models;
 
-public final class Patient {
-    private final Long patientId;
-    private final String secNumber;
-    private final String name;
-    private final String eyeColor;
-    private final String hairColor;
-    private final String birthDate;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Patient(Long patientId, String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
-        this.patientId = patientId;
+@Entity
+public class Patient {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long patientId;
+
+    private String secNumber;
+    private String name;
+    private String eyeColor;
+    private String hairColor;
+    private String birthDate;
+
+    @OneToMany(targetEntity=Examination.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Examination> branch = new ArrayList<>();
+
+    public Patient(String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
         this.secNumber = secNumber;
         this.name = name;
         this.eyeColor = eyeColor;
         this.hairColor = hairColor;
         this.birthDate = birthDate;
+    }
+
+    public Patient() {
+
     }
 
     public Long getPatientId() {

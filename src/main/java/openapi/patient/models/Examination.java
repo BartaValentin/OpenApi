@@ -1,21 +1,38 @@
 package openapi.patient.models;
 
-public final class Examination {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-    private final Long ExaminationId;
-    private final int eyeAxis;
-    private final int cylinder;
-    private final double sphere;
-    private final Long patientId;
-    private final EyeSide eyeSide;
+import javax.persistence.*;
 
-    public Examination(Long examinationId, int eyeAxis, int cylinder, double sphere, Long patientId, EyeSide eyeSide) {
-        ExaminationId = examinationId;
+@Entity
+public class Examination {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long ExaminationId;
+
+    private int eyeAxis;
+    private int cylinder;
+    private double sphere;
+    private EyeSide eyeSide;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Patient patient;
+
+    public Examination(int eyeAxis, int cylinder, double sphere, EyeSide eyeSide, Patient patient) {
         this.eyeAxis = eyeAxis;
         this.cylinder = cylinder;
         this.sphere = sphere;
-        this.patientId = patientId;
         this.eyeSide = eyeSide;
+        this.patient = patient;
+    }
+
+    public Examination() {
+
     }
 
     public Long getExaminationId() {
@@ -34,11 +51,8 @@ public final class Examination {
         return sphere;
     }
 
-    public Long getPatientId() {
-        return patientId;
-    }
-
     public EyeSide getEyeSide() {
         return eyeSide;
     }
+
 }

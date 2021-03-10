@@ -1,6 +1,6 @@
 package openapi.patient.models;
 
-// teszt komment
+// teszt komment 14:45
 
 public class Examination {
 

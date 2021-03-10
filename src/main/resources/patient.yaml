@@ -29,7 +29,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PatientList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientDetails'
         '400':
           $ref: '#/components/responses/badRequest'
         '404':
@@ -121,7 +123,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExaminationList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Examination'
 
   /patients/{secNumber}/examinations/{eye}:
     put:
@@ -198,7 +202,7 @@ components:
   schemas:
     PatientDetails:
       properties:
-        secNumberId:
+        secNumber:
           type: string
         name:
           type: string
@@ -210,7 +214,7 @@ components:
           type: string
           format: datetime
       required:
-        - secNumberId
+        - secNumber
         - name
         - eyeColor
         - hairColor
@@ -231,14 +235,6 @@ components:
         - eyeColor
         - hairColor
         - birthDate
-    PatientList:
-      type: array
-      items:
-        $ref: '#/components/schemas/PatientDetails'
-    ExaminationList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Examination'
     Examination:
       properties:
         eyeAxis:

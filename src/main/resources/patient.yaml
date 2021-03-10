@@ -20,7 +20,11 @@ paths:
               $ref: '#/components/schemas/PatientDetails'
       responses:
         '201':
-          $ref: '#/components/responses/patientCreated'
+          description: Return succes created message
+          content:
+            application/json:
+              schema:
+                  type: string
     get:
       summary: Get all patients
       responses:
@@ -32,12 +36,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/PatientDetails'
-        '400':
-          $ref: '#/components/responses/badRequest'
         '404':
-          $ref: '#/components/responses/notFound'
-        default:
-          description: Unexpected error
+          description: Return not found message
+          content:
+            application/json:
+              schema:
+                type: string
   /patients/{secNumber}:
     get:
       summary: Returns a patient by secNumber.
@@ -56,11 +60,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/PatientDetails'
         '400':
-          $ref: '#/components/responses/badRequest'
+          description: Return bad request message
+          content:
+            application/json:
+              schema:
+                type: string
         '404':
-          $ref: '#/components/responses/notFound'
-        default:
-          description: Unexpected error
+          description: Return not found message
+          content:
+            application/json:
+              schema:
+                type: string
     put:
       summary: Update patient by secNumber.
       parameters:
@@ -75,16 +85,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdatePatient'
+              $ref: '#/components/schemas/PatientDetails'
       responses:
         '200':
-          $ref: '#/components/responses/patientUpdated'
+          description: Updated patient object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientDetails'
         '400':
-          $ref: '#/components/responses/badRequest'
+          description: Return bad request message
+          content:
+            application/json:
+              schema:
+                type: string
         '404':
-          $ref: '#/components/responses/notFound'
-        default:
-          description: Unexpected error
+          description: Return not found message
+          content:
+            application/json:
+              schema:
+                type: string
   /patients/{secNumber}/examinations:
     post:
       summary: Create patient examination by secNumber.
@@ -103,11 +123,17 @@ paths:
               $ref: '#/components/schemas/Examination'
       responses:
         '201':
-          $ref: '#/components/responses/examinationCreated'
+          description: Succes examination crate message
+          content:
+            application/json:
+              schema:
+                type: string
         '400':
-          $ref: '#/components/responses/badRequest'
-        '404':
-          $ref: '#/components/responses/notFound'
+          description: Return bad request message
+          content:
+            application/json:
+              schema:
+                type: string
     get:
       summary: Get patient examinations by secNumber
       parameters:
@@ -126,6 +152,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Examination'
+        '404':
+          description: Return not found message
+          content:
+            application/json:
+              schema:
+                type: string
 
   /patients/{secNumber}/examinations/{eye}:
     put:
@@ -151,11 +183,23 @@ paths:
               $ref: '#/components/schemas/Examination'
       responses:
         '200':
-          $ref: '#/components/responses/examinationUpdated'
+          description: Return succes examination update message
+          content:
+            application/json:
+              schema:
+                type: string
         '400':
-          $ref: '#/components/responses/badRequest'
+          description: Return bad request message
+          content:
+            application/json:
+              schema:
+                type: string
         '404':
-          $ref: '#/components/responses/notFound'
+          description: Return notFound message
+          content:
+            application/json:
+              schema:
+                type: string
     get:
       summary: Get examination by secNumber and eyeSide composite key.
       parameters:
@@ -179,26 +223,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/Examination'
         '400':
-          $ref: '#/components/responses/badRequest'
+          description: Return bad request message
+          content:
+            application/json:
+              schema:
+                type: string
         '404':
-          $ref: '#/components/responses/notFound'
+          description: Return not found message
+          content:
+            application/json:
+              schema:
+                type: string
 
 components:
-  responses:
-    examinationCreated:
-      description: Patient examination created!
-    patientCreated:
-      description: Patient created!
-    patientUpdated:
-      description: Patient updated!
-    examinationUpdated:
-      description: Patient examination updated!
-    ok:
-      description: Status ok!
-    notFound:
-      description: A patient with the specified secnumber was not found!
-    badRequest:
-      description: The specified patient secnumber is nul!
   schemas:
     PatientDetails:
       properties:
@@ -215,22 +252,6 @@ components:
           format: datetime
       required:
         - secNumber
-        - name
-        - eyeColor
-        - hairColor
-        - birthDate
-    UpdatePatient:
-      properties:
-        name:
-          type: string
-        eyeColor:
-          type: string
-        hairColor:
-          type: string
-        birthDate:
-          type: string
-          format: datetime
-      required:
         - name
         - eyeColor
         - hairColor

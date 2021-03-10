@@ -18,17 +18,11 @@ public class Examination {
     private double sphere;
     private EyeSide eyeSide;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Patient patient;
-
-    public Examination(int eyeAxis, int cylinder, double sphere, EyeSide eyeSide, Patient patient) {
+    public Examination(int eyeAxis, int cylinder, double sphere, EyeSide eyeSide) {
         this.eyeAxis = eyeAxis;
         this.cylinder = cylinder;
         this.sphere = sphere;
         this.eyeSide = eyeSide;
-        this.patient = patient;
     }
 
     public Examination() {

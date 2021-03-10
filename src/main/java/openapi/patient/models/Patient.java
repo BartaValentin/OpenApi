@@ -17,9 +17,6 @@ public class Patient {
     private String hairColor;
     private String birthDate;
 
-    @OneToMany(targetEntity=Examination.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Examination> branch = new ArrayList<>();
-
     public Patient(String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
         this.secNumber = secNumber;
         this.name = name;

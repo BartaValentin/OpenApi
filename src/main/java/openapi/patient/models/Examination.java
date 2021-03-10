@@ -1,15 +1,13 @@
 package openapi.patient.models;
 
-// teszt komment 14:45
+public final class Examination {
 
-public class Examination {
-
-    private Long ExaminationId;
-    private int eyeAxis;
-    private int cylinder;
-    private double sphere;
-    private Long patientId;
-    private EyeSide eyeSide;
+    private final Long ExaminationId;
+    private final int eyeAxis;
+    private final int cylinder;
+    private final double sphere;
+    private final Long patientId;
+    private final EyeSide eyeSide;
 
     public Examination(Long examinationId, int eyeAxis, int cylinder, double sphere, Long patientId, EyeSide eyeSide) {
         ExaminationId = examinationId;

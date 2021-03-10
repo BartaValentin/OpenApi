@@ -1,12 +1,12 @@
 package openapi.patient.models;
 
-public class Patient {
-    private Long patientId;
-    private String secNumber;
-    private String name;
-    private String eyeColor;
-    private String hairColor;
-    private String birthDate;
+public final class Patient {
+    private final Long patientId;
+    private final String secNumber;
+    private final String name;
+    private final String eyeColor;
+    private final String hairColor;
+    private final String birthDate;
 
     public Patient(Long patientId, String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
         this.patientId = patientId;

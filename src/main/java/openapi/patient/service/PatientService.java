@@ -1,7 +1,7 @@
 package openapi.patient.service;
 
 import com.openapi.models.PatientDetails;
-import openapi.patient.models.Patient;
+import openapi.patient.models.PatientDo;
 import openapi.patient.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,11 @@ import java.util.ArrayList;
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+
+    public PatientService(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     public void createPatient(PatientDetails patientDetails) {
         var patient = toPatient(patientDetails);
@@ -40,12 +43,12 @@ public class PatientService {
        return toPatientDetails(patient);
     }
 
-    private Patient getPatient(String secNumber) {
+    private PatientDo getPatient(String secNumber) {
         return patientRepository.findAll().stream().filter(t -> t.getSecNumber().equals(secNumber)).findFirst().get();
     }
 
-    private Patient toPatient(PatientDetails patientDetails) {
-        return new Patient(
+    private PatientDo toPatient(PatientDetails patientDetails) {
+        return new PatientDo(
             patientDetails.getSecNumber(),
             patientDetails.getName(),
             patientDetails.getEyeColor(),
@@ -54,7 +57,7 @@ public class PatientService {
         );
     }
 
-    private PatientDetails toPatientDetails(Patient patient) {
+    private PatientDetails toPatientDetails(PatientDo patient) {
         var patientDetails = new PatientDetails();
         patientDetails.setSecNumber(patient.getSecNumber());
         patientDetails.setName(patient.getName());

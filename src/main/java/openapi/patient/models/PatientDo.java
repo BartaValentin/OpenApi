@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Patient {
+public class PatientDo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class Patient {
     private String hairColor;
     private String birthDate;
 
-    public Patient(String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
+    public PatientDo(String secNumber, String name, String eyeColor, String hairColor, String birthDate) {
         this.secNumber = secNumber;
         this.name = name;
         this.eyeColor = eyeColor;
@@ -25,7 +25,7 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public Patient() {
+    public PatientDo() {
 
     }
 

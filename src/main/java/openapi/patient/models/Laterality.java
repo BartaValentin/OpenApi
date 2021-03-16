@@ -1,6 +1,6 @@
 package openapi.patient.models;
 
-public enum EyeSide {
+public enum Laterality {
     LEFT,
     RIGHT
 }

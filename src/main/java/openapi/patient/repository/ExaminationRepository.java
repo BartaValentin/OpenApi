@@ -1,8 +1,8 @@
 package openapi.patient.repository;
 
-import com.openapi.models.Examination;
+import openapi.patient.models.ExaminationDo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ExaminationRepository {
+public interface ExaminationRepository extends JpaRepository<ExaminationDo, Long> {
 
 }

@@ -21,10 +21,11 @@ public class PatientService {
         patientRepository.save(patient);
     }
 
-    public void updatePatient(PatientDetails patientDetails) {
-        var patient = getPatient(patientDetails.getSecNumber());
+    public PatientDetails updatePatient(PatientDetails patientDetails, String secNumber) {
+        var patient = getPatient(secNumber);
         patientRepository.delete(patient);
         createPatient(patientDetails);
+        return patientDetails;
     }
 
     public ArrayList<PatientDetails> getPatients() {

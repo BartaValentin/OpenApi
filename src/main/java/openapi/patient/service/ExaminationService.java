@@ -37,6 +37,20 @@ public class ExaminationService {
         return  examinations;
     }
 
+    public Examination getPatientExamination(String secNumber, EyeSide eyeSide) {
+        var patientDo = getPatientBySecNumber(secNumber);
+
+        var laterality = eyeSide == EyeSide.RIGHT ? Laterality.RIGHT : Laterality.LEFT;
+
+        var examinationDo = examinationRepository
+                                            .findAll()
+                                            .stream()
+                                            .filter(t -> t.getPatientId().equals(patientDo.getPatientId()) && t.getLaterality().equals(laterality))
+                                            .findFirst()
+                                            .get();
+        return toExamination(examinationDo);
+    }
+
     public void createExamination(Examination examination, String secNumber) {
         var patient = getPatientBySecNumber(secNumber);
         var examinationDo = toExaminationDo(examination,patient.getPatientId());

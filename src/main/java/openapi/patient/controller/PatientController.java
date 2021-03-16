@@ -36,7 +36,8 @@ public class PatientController implements PatientsApi {
 
     @Override
     public ResponseEntity<Examination> patientsSecNumberExaminationsEyeGet(String secNumber, EyeSide eye) {
-        return null;
+        var patient = examinationService.getPatientExamination(secNumber, eye);
+        return ResponseEntity.ok(patient);
     }
 
     @Override
@@ -64,7 +65,8 @@ public class PatientController implements PatientsApi {
 
     @Override
     public ResponseEntity<PatientDetails> patientsSecNumberPut(@Valid PatientDetails body, String secNumber) {
-        return null;
+        var updatedPatient = patientService.updatePatient(body,secNumber);
+        return ResponseEntity.ok(updatedPatient);
     }
 
 

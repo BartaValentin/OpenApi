@@ -24,17 +24,25 @@ public class ExaminationService {
         this.patientRepository = patientRepository;
     }
 
+    public Examination updateEyamination(String secNumber, EyeSide eyeSide, Examination updatedExamination) {
+        var examination = getPatientExamination(secNumber, eyeSide);
+        var oldExamination = toExaminationDo(examination, examination.getPatientId().longValue());
+        examinationRepository.delete(oldExamination);
+        createExamination(updatedExamination, secNumber);
+        return updatedExamination;
+    }
+
     public ArrayList<Examination> getPatientExaminations(String secNumber) {
         var patientDo = getPatientBySecNumber(secNumber);
         var examinationDo = examinationRepository.findAll().stream().filter(t -> t.getPatientId() == patientDo.getPatientId()).toArray();
 
         ArrayList<Examination> examinations = new ArrayList<Examination>();
 
-        for(var examination : examinationDo) {
+        for (var examination : examinationDo) {
             examinations.add(toExamination((ExaminationDo) examination));
         }
 
-        return  examinations;
+        return examinations;
     }
 
     public Examination getPatientExamination(String secNumber, EyeSide eyeSide) {
@@ -43,17 +51,17 @@ public class ExaminationService {
         var laterality = eyeSide == EyeSide.RIGHT ? Laterality.RIGHT : Laterality.LEFT;
 
         var examinationDo = examinationRepository
-                                            .findAll()
-                                            .stream()
-                                            .filter(t -> t.getPatientId().equals(patientDo.getPatientId()) && t.getLaterality().equals(laterality))
-                                            .findFirst()
-                                            .get();
+                .findAll()
+                .stream()
+                .filter(t -> t.getPatientId().equals(patientDo.getPatientId()) && t.getLaterality().equals(laterality))
+                .findFirst()
+                .get();
         return toExamination(examinationDo);
     }
 
     public void createExamination(Examination examination, String secNumber) {
         var patient = getPatientBySecNumber(secNumber);
-        var examinationDo = toExaminationDo(examination,patient.getPatientId());
+        var examinationDo = toExaminationDo(examination, patient.getPatientId());
         examinationRepository.save(examinationDo);
     }
 
@@ -71,11 +79,13 @@ public class ExaminationService {
         );
     }
 
-    private  Examination toExamination(ExaminationDo examinationDo) {
+    private Examination toExamination(ExaminationDo examinationDo) {
 
         EyeSide eyeSide = examinationDo.getLaterality() == Laterality.RIGHT ? EyeSide.RIGHT : EyeSide.LEFT;
 
         var examination = new Examination();
+
+        examination.setPatientId(examinationDo.getPatientId().intValue());
         examination.setEyeAxis(new BigDecimal(examinationDo.getEyeAxis()));
         examination.setCylinder(new BigDecimal(examinationDo.getCylinder()));
         examination.setSphere(new BigDecimal(examinationDo.getSphere()));
@@ -83,5 +93,4 @@ public class ExaminationService {
 
         return examination;
     }
-
 }

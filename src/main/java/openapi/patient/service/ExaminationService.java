@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Service
 public class ExaminationService {
@@ -24,19 +23,18 @@ public class ExaminationService {
         this.patientRepository = patientRepository;
     }
 
-    public Examination updateEyamination(String secNumber, EyeSide eyeSide, Examination updatedExamination) {
+    public void updateExamination(String secNumber, EyeSide eyeSide, Examination updatedExamination) {
         var examination = getPatientExamination(secNumber, eyeSide);
         var oldExamination = toExaminationDo(examination, examination.getPatientId().longValue());
         examinationRepository.delete(oldExamination);
         createExamination(updatedExamination, secNumber);
-        return updatedExamination;
     }
 
     public ArrayList<Examination> getPatientExaminations(String secNumber) {
         var patientDo = getPatientBySecNumber(secNumber);
-        var examinationDo = examinationRepository.findAll().stream().filter(t -> t.getPatientId() == patientDo.getPatientId()).toArray();
+        var examinationDo = examinationRepository.findAll().stream().filter(t -> t.getPatientId().equals(patientDo.getPatientId())).toArray();
 
-        ArrayList<Examination> examinations = new ArrayList<Examination>();
+        ArrayList<Examination> examinations = new ArrayList<>();
 
         for (var examination : examinationDo) {
             examinations.add(toExamination((ExaminationDo) examination));
@@ -86,9 +84,9 @@ public class ExaminationService {
         var examination = new Examination();
 
         examination.setPatientId(examinationDo.getPatientId().intValue());
-        examination.setEyeAxis(new BigDecimal(examinationDo.getEyeAxis()));
-        examination.setCylinder(new BigDecimal(examinationDo.getCylinder()));
-        examination.setSphere(new BigDecimal(examinationDo.getSphere()));
+        examination.setEyeAxis(BigDecimal.valueOf(examinationDo.getEyeAxis()));
+        examination.setCylinder(BigDecimal.valueOf(examinationDo.getCylinder()));
+        examination.setSphere(BigDecimal.valueOf(examinationDo.getSphere()));
         examination.setEyeSide(eyeSide);
 
         return examination;

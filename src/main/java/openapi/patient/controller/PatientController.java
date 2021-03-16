@@ -42,7 +42,7 @@ public class PatientController implements PatientsApi {
 
     @Override
     public ResponseEntity<String> patientsSecNumberExaminationsEyePut(@Valid Examination body, String secNumber, EyeSide eye) {
-        examinationService.updateEyamination(secNumber, eye, body);
+        examinationService.updateExamination(secNumber, eye, body);
         return new ResponseEntity<>("Success! Examination updated!!", HttpStatus.OK);
     }
 

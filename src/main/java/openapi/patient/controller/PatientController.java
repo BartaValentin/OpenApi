@@ -2,6 +2,7 @@ package openapi.patient.controller;
 
 import com.openapi.api.PatientsApi;
 import com.openapi.models.*;
+import openapi.patient.service.ExaminationService;
 import openapi.patient.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +15,11 @@ import java.util.List;
 public class PatientController implements PatientsApi {
 
     private final PatientService patientService;
+    private final ExaminationService examinationService;
 
-    public PatientController(PatientService patientService) {
+    public PatientController(PatientService patientService, ExaminationService examinationService) {
         this.patientService = patientService;
+        this.examinationService = examinationService;
     }
 
     @Override
@@ -43,12 +46,14 @@ public class PatientController implements PatientsApi {
 
     @Override
     public ResponseEntity<List<Examination>> patientsSecNumberExaminationsGet(String secNumber) {
-        return null;
+        var examinations = examinationService.getPatientExaminations(secNumber);
+        return ResponseEntity.ok(examinations);
     }
 
     @Override
     public ResponseEntity<String> patientsSecNumberExaminationsPost(@Valid Examination body, String secNumber) {
-        return null;
+        examinationService.createExamination(body, secNumber);
+        return new ResponseEntity<>("Success! New Examination Created!", HttpStatus.CREATED);
     }
 
     @Override

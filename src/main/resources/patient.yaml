@@ -259,7 +259,7 @@ components:
     Examination:
       properties:
         eyeAxis:
-          type: integer
+          type: number
         cylinder:
           type: number
         sphere:

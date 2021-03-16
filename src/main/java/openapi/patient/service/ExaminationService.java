@@ -9,7 +9,9 @@ import openapi.patient.repository.ExaminationRepository;
 import openapi.patient.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 public class ExaminationService {
@@ -22,8 +24,17 @@ public class ExaminationService {
         this.patientRepository = patientRepository;
     }
 
-    public ArrayList<Examination> getPatientExaminations() {
-        return null;
+    public ArrayList<Examination> getPatientExaminations(String secNumber) {
+        var patientDo = getPatientBySecNumber(secNumber);
+        var examinationDo = examinationRepository.findAll().stream().filter(t -> t.getPatientId() == patientDo.getPatientId()).toArray();
+
+        ArrayList<Examination> examinations = new ArrayList<Examination>();
+
+        for(var examination : examinationDo) {
+            examinations.add(toExamination((ExaminationDo) examination));
+        }
+
+        return  examinations;
     }
 
     public void createExamination(Examination examination, String secNumber) {
@@ -44,6 +55,19 @@ public class ExaminationService {
                 examination.getEyeSide() == EyeSide.RIGHT ? Laterality.RIGHT : Laterality.LEFT,
                 patientId
         );
+    }
+
+    private  Examination toExamination(ExaminationDo examinationDo) {
+
+        EyeSide eyeSide = examinationDo.getLaterality() == Laterality.RIGHT ? EyeSide.RIGHT : EyeSide.LEFT;
+
+        var examination = new Examination();
+        examination.setEyeAxis(new BigDecimal(examinationDo.getEyeAxis()));
+        examination.setCylinder(new BigDecimal(examinationDo.getCylinder()));
+        examination.setSphere(new BigDecimal(examinationDo.getSphere()));
+        examination.setEyeSide(eyeSide);
+
+        return examination;
     }
 
 }

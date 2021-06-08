@@ -32,30 +32,30 @@ export class HomeComponent implements OnInit {
   }
 
   parentWillTakeAction(message: string): void {
-    const filteredPatients = this.patient_informations.filter((patients: Patient) =>
-      patients.name.toLowerCase().startsWith(message),
-    );
-    this.patients_datasource = new MatTableDataSource(filteredPatients);
+    const filteredPatients = this.patient_informations.filter((patients: Patient) => patients.name.toLowerCase().startsWith(message));
+    this.setPaginator(filteredPatients);
+  }
+
+  setPaginator(patients: Patient[]): void {
+    this.displayedColumns = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
+    this.patients_datasource = new MatTableDataSource(patients);
+    this.patients_datasource.sort = this.sort;
+    this.patients_datasource.paginator = this.paginator;
   }
 
   getPatients(): void {
     this.service.getPatients().subscribe(patients => {
       this.patient_informations = patients;
-      this.displayedColumns = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
-      this.patients_datasource = new MatTableDataSource(patients);
-      this.patients_datasource.sort = this.sort;
-      this.patients_datasource.paginator = this.paginator;
+      this.setPaginator(patients);
     })
   }
 
   deletePatient(patient: Patient): void {
-
     if (confirm("Are you sure to delete? Selected Patient: " + patient.name)) {
       this.patient_informations = this.patient_informations.filter(h => h !== patient);
       this.service.deletePatient(patient.id).subscribe();
       this.getPatients();
     }
-
   }
 
   newPatient(): void {

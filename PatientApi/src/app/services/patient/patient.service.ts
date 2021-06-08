@@ -35,16 +35,6 @@ export class PatientService {
     );
   }
 
-  searchPatients(term: string): Observable<Patient[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
-    return this.http.get<Patient[]>(`${this.patientUrl}/?name=${term}`).pipe(
-      tap(x => x.length ? console.log(`found patients matching "${term}"`) : console.log(`no patients matching "${term}"`)),
-      catchError(this.handleError<Patient[]>('searchPatients', []))
-    );
-  }
-
   addPatient(patientDto: CreatePatientDTO): Observable<Patient> {
     const patient = this.convertPatientDetails(patientDto);
     return this.http.post<Patient>(this.patientUrl, patient, this.httpOptions).pipe(

@@ -1,0 +1,28 @@
+<div align="center" style="margin: 10%;">
+  <mat-card class="example-card">
+    <h3 align="center"><b> {{patient?.name}} </b></h3>
+    <mat-card-content>
+      <table>
+        <tr>
+          <td><b>Birthdate:</b></td>
+          <td>{{patient?.birthdate}}</td>
+        </tr>
+        <tr>
+          <td><b>Sphere:</b></td>
+          <td>{{patient?.sphere}}</td>
+        </tr>
+        <tr>
+          <td><b>Cylinder:</b></td>
+          <td>{{patient?.cylinder}}</td>
+        </tr>
+        <tr>
+          <td><b>Axis:</b></td>
+          <td>{{patient?.axis}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button color="accent" (click)="goBack()">Vissza</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

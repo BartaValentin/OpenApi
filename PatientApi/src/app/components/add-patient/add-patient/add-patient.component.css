@@ -1,0 +1,15 @@
+button {
+    margin: 0.5%;
+}
+
+.title {
+    margin: 1%;
+}
+
+mat-form-field {
+    margin: 0.05%;
+}
+
+input {
+    width: 100%;
+}

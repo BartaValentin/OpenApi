@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Patient } from 'src/app/services/patient/model/patient';
+import { DeletePatientDTO } from 'src/app/services/patient/model/patient';
+import { Patient, PatientDetails } from 'src/app/services/patient/model/patient.model';
 import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
@@ -14,14 +14,13 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class HomeComponent implements OnInit {
 
-  patient_informations: Patient[] = [];
+  patient_informations: PatientDetails[] = [];
   displayedColumns: string[] = [];
   patients_datasource: any;
 
   constructor(
     private router: Router,
-    private service: PatientService,
-    public dialog: MatDialog) {
+    private service: PatientService) {
   }
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -32,11 +31,11 @@ export class HomeComponent implements OnInit {
   }
 
   parentWillTakeAction(message: string): void {
-    const filteredPatients = this.patient_informations.filter((patients: Patient) => patients.name.toLowerCase().startsWith(message));
+    const filteredPatients: PatientDetails[] = this.patient_informations.filter((patients: PatientDetails) => patients.name.toLowerCase().startsWith(message));
     this.setPaginator(filteredPatients);
   }
 
-  setPaginator(patients: Patient[]): void {
+  setPaginator(patients: PatientDetails[]): void {
     this.displayedColumns = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
     this.patients_datasource = new MatTableDataSource(patients);
     this.patients_datasource.sort = this.sort;
@@ -50,10 +49,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  deletePatient(patient: Patient): void {
+  deletePatient(patient: PatientDetails): void {
     if (confirm("Are you sure to delete? Selected Patient: " + patient.name)) {
+      const id: DeletePatientDTO = { id: patient.id };
       this.patient_informations = this.patient_informations.filter(h => h !== patient);
-      this.service.deletePatient(patient.id).subscribe();
+      this.service.deletePatient(id).subscribe();
       this.getPatients();
     }
   }
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   }
 
   updatePatient(patient: Patient): void {
-    console.log(patient);
+    this.router.navigate(['/update', patient.id]);
   }
 
   patientDetails(patient: Patient): void {

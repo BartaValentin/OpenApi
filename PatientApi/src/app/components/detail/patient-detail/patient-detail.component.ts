@@ -1,7 +1,7 @@
 
 import { Component, OnInit, } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { Patient } from 'src/app/services/patient/model/patient';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Patient } from 'src/app/services/patient/model/patient.model';
 import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { PatientService } from 'src/app/services/patient/patient.service';
   styleUrls: ['./patient-detail.component.css']
 })
 export class PatientDetailComponent implements OnInit {
-
 
   patient: Patient | undefined;
 
@@ -26,8 +25,7 @@ export class PatientDetailComponent implements OnInit {
 
   getPatient(): void {
     const id = <string>this.route.snapshot.paramMap.get('id');
-    this.service.getPatientById(id)
-      .subscribe((patient) => this.patient = patient);
+    this.service.getPatientById(id).subscribe((patient) => this.patient = patient);
   }
 
   goBack(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CreatePatientDTO, Patient } from 'src/app/services/patient/model/patient';
+import { CreatePatientDTO } from 'src/app/services/patient/model/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class AddPatientComponent implements OnInit {
   ngOnInit(): void {}
 
   succes() {
-    this.snackBar.open('Sikeres létrehozás', 'Új páciens', {
+    this.snackBar.open('Successful creation', 'Patient', {
       duration: 1000,
     });
     this.router.navigate(['/']);
@@ -34,10 +34,9 @@ export class AddPatientComponent implements OnInit {
     cylinder: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
     axis: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
   });
-  patientDto: CreatePatientDTO | undefined;
+  patientDto: CreatePatientDTO;
 
   createPatient() {
-
     this.patientDto = {
       name: this.patientFormGroup.get('name')!.value,
       birthdate: this.patientFormGroup.get('birthdate')!.value,
@@ -45,8 +44,9 @@ export class AddPatientComponent implements OnInit {
       cylinder: this.patientFormGroup.get('cylinder')!.value,
       axis: this.patientFormGroup.get('axis')!.value,
     }
-    this.service.addPatient(this.patientDto).subscribe();
-    this.succes();
+    this.service.addPatient(this.patientDto).subscribe(() => {
+      this.succes();
+    });
   }
 
   getError(attribute: string): string {

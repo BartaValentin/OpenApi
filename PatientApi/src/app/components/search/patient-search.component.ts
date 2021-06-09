@@ -1,11 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
-import { Patient } from 'src/app/services/patient/model/patient';
-import { PatientService } from 'src/app/services/patient/patient.service';
-
+import { Patient } from 'src/app/services/patient/model/patient.model';
 
 @Component({
   selector: 'patient-search',

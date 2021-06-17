@@ -1,55 +1,60 @@
 <h2 align="center" id="title">Patient modification</h2>
 
-<form [formGroup]="patientFormGroup" align="center" *ngIf="patientFormGroup">
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name">
-            <mat-error *ngIf="patientFormGroup.controls['name'].invalid">
-                {{ getError('name') }}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill" style="width: 10%;">
-            <mat-label>Birthdate</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="birthdate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="patientFormGroup.controls['birthdate'].invalid">
-                {{ getError('birthdate') }}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Sphere</mat-label>
-            <input matInput formControlName="sphere">
-            <mat-error *ngIf="patientFormGroup.controls['sphere'].invalid">
-                {{ getError('sphere') }}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Cylinder</mat-label>
-            <input matInput formControlName="cylinder">
-            <mat-error *ngIf="patientFormGroup.controls['cylinder'].invalid">
-                {{ getError('cylinder') }}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Axis</mat-label>
-            <input matInput formControlName="axis">
-            <mat-error *ngIf="patientFormGroup.controls['axis'].invalid">
-                {{ getError('axis') }}
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div>
-        <button routerLink="/" mat-raised-button matDialogClose>Back</button>
-        <button color="primary" [disabled]="!patientFormGroup.valid" (click)="updatePatient()" mat-raised-button>Update</button>
-    </div>
-</form>
+<div align="center">
+
+    <form [formGroup]="patientFormGroup"  *ngIf="patientFormGroup" class="patient-form">
+        <div>
+            <mat-form-field appearance="fill" class="patient-full-width">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="patientFormGroup.controls['name'].invalid">
+                    {{ getError('name') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill" class="patient-full-width">
+                <mat-label>Birthdate</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthdate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="patientFormGroup.controls['birthdate'].invalid">
+                    {{ getError('birthdate') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill" class="patient-full-width">
+                <mat-label>Sphere</mat-label>
+                <input matInput formControlName="sphere">
+                <mat-error *ngIf="patientFormGroup.controls['sphere'].invalid">
+                    {{ getError('sphere') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill" class="patient-full-width">
+                <mat-label>Cylinder</mat-label>
+                <input matInput formControlName="cylinder">
+                <mat-error *ngIf="patientFormGroup.controls['cylinder'].invalid">
+                    {{ getError('cylinder') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill" class="patient-full-width">
+                <mat-label>Axis</mat-label>
+                <input matInput formControlName="axis">
+                <mat-error *ngIf="patientFormGroup.controls['axis'].invalid">
+                    {{ getError('axis') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <button routerLink="/" mat-raised-button>Back</button>
+            <button color="primary" [disabled]="!patientFormGroup.valid" (click)="updatePatient()" mat-raised-button>Update</button>
+        </div>
+    </form>
+
+</div>
+

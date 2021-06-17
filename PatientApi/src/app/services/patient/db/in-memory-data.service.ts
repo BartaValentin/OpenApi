@@ -20,7 +20,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 'f87e794c-e11a-4fd4-b6be-b99bb2662b18', name: 'Kornél', birthdate: new Date(1991, 1, 1), axis: 10, cylinder: 10, sphere: 10 },
       { id: 'd4bfe066-9692-4e46-9ebf-5ce7e15ab2de', name: 'István', birthdate: new Date(2000, 2, 1), axis: 11, cylinder: 11, sphere: 11 },
       { id: '2b70b9b3-c0da-43bf-8840-5b201e43565e', name: 'Dávid', birthdate: new Date(2001, 3, 1), axis: 12, cylinder: 12, sphere: 12 },
-      { id: 'b216d7e9-87b2-4da9-ae82-fc5c39fc53f7', name: 'Gergő', birthdate: new Date(1999, 4, 1), axis: 13, cylinder: 13, sphere: 13 },
+      { id: 'b216d7e9-87b2-4da9-ae82-fc5c39fc53f7', name: 'Gergő', birthdate: new Date(1949, 4, 1), axis: 13, cylinder: 13, sphere: 13 },
       { id: 'b7cafb19-13b5-493d-81dc-c72e05ba2438', name: 'Henrik', birthdate: new Date(1974, 8, 1), axis: 14, cylinder: 14, sphere: 14 },
       { id: '9a15c6bf-164b-406e-808d-9b75183101a5', name: 'Levente', birthdate: new Date(1969, 12, 1), axis: 15, cylinder: 15, sphere: 15 },
     ];

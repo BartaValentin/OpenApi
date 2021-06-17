@@ -11,7 +11,7 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class PatientDetailComponent implements OnInit {
 
-  patient: Patient | undefined;
+  patient: Patient;
 
   constructor(
     private route: ActivatedRoute,

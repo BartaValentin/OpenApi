@@ -11,10 +11,6 @@ import { Patient } from 'src/app/services/patient/model/patient.model';
 export class PatientSearchComponent implements OnInit {
 
   @Output() informParent = new EventEmitter<string>();
-
-  myControl = new FormControl();
-  options: Patient[] = [];
-
   filteredOptions: Observable<Patient[]>;
 
   constructor() {}

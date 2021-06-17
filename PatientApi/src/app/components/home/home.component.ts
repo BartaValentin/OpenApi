@@ -1,12 +1,13 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { DeletePatientDTO } from 'src/app/services/patient/model/patient';
-import { Patient, PatientDetails, toPatientDetails } from 'src/app/services/patient/model/patient.model';
+import { Patient } from 'src/app/services/patient/model/patient.model';
 import { PatientService } from 'src/app/services/patient/patient.service';
+
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,9 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class HomeComponent implements OnInit {
 
-  patient_informations: PatientDetails[] = [];
+  patients: Patient[] = [];
   displayedColumns: string[] = [];
-  patients_datasource: any;
+  datasource: MatTableDataSource<Patient>;
 
   constructor(
     private router: Router,
@@ -25,37 +26,37 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar) {
   }
 
-  @ViewChild(MatSort) sort: MatSort | undefined;
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.getPatients();
   }
 
   parentWillTakeAction(message: string): void {
-    const filteredPatients: PatientDetails[] = this.patient_informations.filter((patients: PatientDetails) => patients.name.toLowerCase().startsWith(message));
+    const filteredPatients: Patient[] = this.patients.filter((patients: Patient) => patients.name.toLowerCase().startsWith(message));
     this.setPaginator(filteredPatients);
   }
 
-  setPaginator(patients: PatientDetails[]): void {
+  setPaginator(patients: Patient[]): void {
     this.displayedColumns = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
-    this.patients_datasource = new MatTableDataSource(patients);
-    this.patients_datasource.sort = this.sort;
-    this.patients_datasource.paginator = this.paginator;
+    this.datasource = new MatTableDataSource(patients);
+    this.datasource.sort = this.sort;
+    this.datasource.paginator = this.paginator;
   }
 
   getPatients(): void {
     this.service.getPatients().subscribe(patients => {
-      this.patient_informations = toPatientDetails(patients);
-      this.setPaginator(this.patient_informations);
+      this.patients = patients;
+      this.setPaginator(this.patients);
     })
   }
 
-  deletePatient(patientDetails: PatientDetails): void {
+  deletePatient(patientDetails: Patient): void {
     if (confirm("Are you sure to delete? Selected Patient: " + patientDetails.name)) {
-      const deletedPatientIndex = this.patient_informations.findIndex(patient => patient.id === patientDetails.id);
-      this.patient_informations.splice(deletedPatientIndex,1);
-      this.setPaginator(this.patient_informations);
+      const deletedPatientIndex = this.patients.findIndex(patient => patient.id === patientDetails.id);
+      this.patients.splice(deletedPatientIndex,1);
+      this.setPaginator(this.patients);
       this.service.deletePatient( { id: patientDetails.id }).subscribe(() => {
         this.succesDelete(patientDetails.name);
       });

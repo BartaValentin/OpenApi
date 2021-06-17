@@ -13,6 +13,7 @@ import { PatientDetailComponent } from './components/detail/patient-detail/patie
 import { HomeComponent } from './components/home/home.component';
 import { UpdatePatientComponent } from './components/update-patient/update-patient/update-patient.component';
 import { AddPatientComponent } from './components/add-patient/add-patient.component';
+import { BirthDatePipe } from './pipe/birthDatePipe';
 
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { dataEncapsulation: false }
@@ -26,6 +27,7 @@ HttpClientInMemoryWebApiModule.forRoot(
     HomeComponent,
     UpdatePatientComponent,
     AddPatientComponent,
+    BirthDatePipe
   ],
   imports: [
     BrowserModule,

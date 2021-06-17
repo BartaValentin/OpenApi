@@ -46,16 +46,14 @@ export class UpdatePatientComponent implements OnInit {
     })
   }
 
-  succes() {
-    this.snackBar.open('Successful modification', 'Patient', {
-      duration: 1000,
+  succesUpdate(name: string) {
+    this.snackBar.open('Successful modification', `Patient ${name}`, {
+      duration: 2500,
     });
     this.router.navigate(['/']);
   }
 
   updatePatient() {
-
-    console.log(this.patient);
 
     this.patientDto = {
       id: this.patient.id,
@@ -66,7 +64,7 @@ export class UpdatePatientComponent implements OnInit {
       axis: this.patientFormGroup.get('axis').value,
     }
     this.service.updatePatient(this.patientDto).subscribe(() => {
-      this.succes();
+      this.succesUpdate(this.patient.name);
     });
   }
 

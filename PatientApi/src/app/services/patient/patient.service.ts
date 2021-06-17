@@ -16,10 +16,12 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
-  getPatients(): Observable<PatientDetails[]> {
+  getPatients(): Observable<Patient[]> {
     return this.http
       .get<Patient[]>(this.patientUrl)
-      .pipe(map(data => toPatientDetails(data)), catchError(this.handleError));
+      .pipe(
+        catchError(this.handleError<Patient[]>('getPatients', []))
+      );
   }
 
   getPatientById(id: string): Observable<Patient> {
@@ -50,7 +52,7 @@ export class PatientService {
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       return of(result as T);

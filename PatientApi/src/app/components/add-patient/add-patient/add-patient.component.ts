@@ -20,9 +20,9 @@ export class AddPatientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  succes() {
-    this.snackBar.open('Successful creation', 'Patient', {
-      duration: 1000,
+  succesCreate(name: string) {
+    this.snackBar.open('Successful creation', `Patient: ${name}`, {
+      duration: 2500,
     });
     this.router.navigate(['/']);
   }
@@ -45,7 +45,7 @@ export class AddPatientComponent implements OnInit {
       axis: this.patientFormGroup.get('axis')!.value,
     }
     this.service.addPatient(this.patientDto).subscribe(() => {
-      this.succes();
+      this.succesCreate(this.patientDto.name);
     });
   }
 

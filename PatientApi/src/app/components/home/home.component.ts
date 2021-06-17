@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DeletePatientDTO } from 'src/app/services/patient/model/patient';
-import { Patient, PatientDetails } from 'src/app/services/patient/model/patient.model';
+import { Patient, PatientDetails, toPatientDetails } from 'src/app/services/patient/model/patient.model';
 import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
@@ -46,8 +46,8 @@ export class HomeComponent implements OnInit {
 
   getPatients(): void {
     this.service.getPatients().subscribe(patients => {
-      this.patient_informations = patients;
-      this.setPaginator(patients);
+      this.patient_informations = toPatientDetails(patients);
+      this.setPaginator(this.patient_informations);
     })
   }
 
@@ -57,14 +57,14 @@ export class HomeComponent implements OnInit {
       this.patient_informations.splice(deletedPatientIndex,1);
       this.setPaginator(this.patient_informations);
       this.service.deletePatient( { id: patientDetails.id }).subscribe(() => {
-        this.succesDelete();
+        this.succesDelete(patientDetails.name);
       });
     }
   }
 
-  succesDelete() {
-    this.snackBar.open('Successful delete', 'Patient', {
-      duration: 1000,
+  succesDelete(name: string) {
+    this.snackBar.open('Successful delete', `Patient: ${name}`, {
+      duration: 2500,
     });
   }
 

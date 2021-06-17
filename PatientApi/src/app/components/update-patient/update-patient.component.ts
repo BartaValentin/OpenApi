@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UpdatePatientDTO } from 'src/app/services/model/patient';
 import { Patient } from 'src/app/services/model/patient.model';
 import { PatientService } from 'src/app/services/patient.service';
+import { birthDateValidator } from 'src/app/services/validator/validator';
 
 @Component({
   selector: 'app-update-patient',
@@ -39,7 +40,7 @@ export class UpdatePatientComponent implements OnInit {
   setFormGroup(patient: Patient): void {
     this.patientFormGroup = new FormGroup({
       name: new FormControl(patient.name, [Validators.required, Validators.maxLength(50)]),
-      birthdate: new FormControl(new Date(patient.birthdate), [Validators.required]),
+      birthdate: new FormControl(new Date(patient.birthdate), [Validators.required, birthDateValidator()]),
       sphere: new FormControl(patient.sphere, [Validators.required, Validators.min(0), Validators.max(15)]),
       cylinder: new FormControl(patient.cylinder, [Validators.required, Validators.min(0), Validators.max(15)]),
       axis: new FormControl(patient.axis, [Validators.required, Validators.min(0), Validators.max(15)]),
@@ -76,8 +77,8 @@ export class UpdatePatientComponent implements OnInit {
         }
         break;
       case 'birthdate':
-        if (this.patientFormGroup.get('birthdate').hasError('required')) {
-          return 'The birthdate field is required';
+        if (this.patientFormGroup.get('birthdate').hasError('required')  || this.patientFormGroup.get('birthdate')!.hasError('invalidBirthdate')) {
+          return 'The birthdate field is required and the age must be bigger then 18 and lower then 100!';
         }
         break;
       case 'sphere':

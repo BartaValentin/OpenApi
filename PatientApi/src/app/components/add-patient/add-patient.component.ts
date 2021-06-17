@@ -21,7 +21,7 @@ export class AddPatientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  succesCreate(name: string) {
+  succesCreate(name: string): void {
     this.snackBar.open('Successful creation', `Patient: ${name}`, {
       duration: 2500,
     });
@@ -37,7 +37,7 @@ export class AddPatientComponent implements OnInit {
   });
   patientDto: CreatePatientDTO;
 
-  createPatient() {
+  createPatient(): void {
     this.patientDto = {
       name: this.patientFormGroup.get('name')!.value,
       birthdate: this.patientFormGroup.get('birthdate')!.value,

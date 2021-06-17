@@ -4,7 +4,7 @@
             <button mat-raised-button color="primary" (click)="newPatient()">New Patient</button>
         </div>
         <div align="right">
-            <patient-search (informParent)="parentWillTakeAction($event)" ></patient-search>
+            <patient-search (event)="parentWillTakeAction($event)" ></patient-search>
         </div>
         <div align="center">
             <mat-card-title>Patient list</mat-card-title>

@@ -1,4 +1,3 @@
-
 import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Patient } from 'src/app/services/patient/model/patient.model';

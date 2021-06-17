@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError as observableThrowError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of,} from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { CreatePatientDTO, DeletePatientDTO, UpdatePatientDTO } from './model/patient';
-import { convertPatientDetails, Patient, PatientDetails, toPatientDetails } from './model/patient.model';
+import { convertPatientDetails, Patient } from './model/patient.model';
 
 @Injectable()
 export class PatientService {
@@ -58,6 +58,5 @@ export class PatientService {
       return of(result as T);
     };
   }
-
 
 }

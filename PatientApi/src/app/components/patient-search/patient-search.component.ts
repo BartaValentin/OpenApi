@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Patient } from 'src/app/services/patient/model/patient.model';
 
@@ -10,7 +9,7 @@ import { Patient } from 'src/app/services/patient/model/patient.model';
 })
 export class PatientSearchComponent implements OnInit {
 
-  @Output() informParent = new EventEmitter<string>();
+  @Output() event = new EventEmitter<string>();
   filteredOptions: Observable<Patient[]>;
 
   constructor() {}
@@ -19,7 +18,7 @@ export class PatientSearchComponent implements OnInit {
 
   emitParent(name: Event): void {
     const filteredValue = (name.target as HTMLInputElement).value;
-    this.informParent.emit(filteredValue);
+    this.event.emit(filteredValue);
   }
 
 }

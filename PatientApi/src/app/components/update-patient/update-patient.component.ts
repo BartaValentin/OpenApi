@@ -32,7 +32,7 @@ export class UpdatePatientComponent implements OnInit {
     const id = <string>this.route.snapshot.paramMap.get('id');
     this.service.getPatientById(id).subscribe((patient) => {
       this.patient = patient,
-      this.setFormGroup(this.patient)
+        this.setFormGroup(this.patient)
     });
   }
 
@@ -46,14 +46,14 @@ export class UpdatePatientComponent implements OnInit {
     })
   }
 
-  succesUpdate(name: string) {
+  succesUpdate(name: string): void {
     this.snackBar.open('Successful modification', `Patient ${name}`, {
       duration: 2500,
     });
     this.router.navigate(['/']);
   }
 
-  updatePatient() {
+  updatePatient(): void {
 
     this.patientDto = {
       id: this.patient.id,

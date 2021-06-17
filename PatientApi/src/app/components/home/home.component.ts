@@ -1,4 +1,3 @@
-import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Patient } from 'src/app/services/patient/model/patient.model';
 import { PatientService } from 'src/app/services/patient/patient.service';
-
 
 @Component({
   selector: 'app-home',
@@ -63,7 +61,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  succesDelete(name: string) {
+  succesDelete(name: string): void {
     this.snackBar.open('Successful delete', `Patient: ${name}`, {
       duration: 2500,
     });
@@ -82,4 +80,3 @@ export class HomeComponent implements OnInit {
   }
 
 }
-

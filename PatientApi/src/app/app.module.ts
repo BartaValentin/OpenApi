@@ -8,12 +8,12 @@ import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from './services/patient/db/in-memory-data.service';
 import { PatientService } from './services/patient/patient.service';
-import { PatientSearchComponent } from './components/search/patient-search.component';
-import { PatientDetailComponent } from './components/detail/patient-detail/patient-detail.component';
+import { PatientSearchComponent } from './components/patient-search/patient-search.component';
 import { HomeComponent } from './components/home/home.component';
-import { UpdatePatientComponent } from './components/update-patient/update-patient/update-patient.component';
 import { AddPatientComponent } from './components/add-patient/add-patient.component';
 import { BirthDatePipe } from './pipe/birthDatePipe';
+import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
+import { UpdatePatientComponent } from './components/update-patient/update-patient.component';
 
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { dataEncapsulation: false }

@@ -12,8 +12,10 @@ import { AddPatientComponent } from './components/add-patient/add-patient.compon
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
 import { UpdatePatientComponent } from './components/update-patient/update-patient.component';
 import { InMemoryDataService } from './services/db/in-memory-data-service';
-import { BirthDatePipe } from './services/pipe/birthDatePipe';
+import { BirthDatePipe } from './services/pipe/patient.pipe.';
 import { PatientService } from './services/patient.service';
+import { ErrorComponent } from './components/error/error.component';
+import { PatientGuardService } from './services/guard/patient.guard.service.';
 
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { dataEncapsulation: false }
@@ -27,7 +29,8 @@ HttpClientInMemoryWebApiModule.forRoot(
     HomeComponent,
     UpdatePatientComponent,
     AddPatientComponent,
-    BirthDatePipe
+    BirthDatePipe,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,10 @@ HttpClientInMemoryWebApiModule.forRoot(
     SharedModule,
     HttpClientModule
   ],
-  providers: [ PatientService ],
+  providers: [
+    PatientService,
+    PatientGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of,} from 'rxjs';
+import { Observable, of, throwError, } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CreatePatientDTO, DeletePatientDTO, UpdatePatientDTO } from './model/patient';
 import { convertPatientDetails, Patient } from './model/patient.model';
@@ -20,43 +20,51 @@ export class PatientService {
     return this.http
       .get<Patient[]>(this.patientUrl)
       .pipe(
-        catchError(this.handleError<Patient[]>('getPatients', []))
+        catchError(this.handleError)
       );
   }
 
   getPatientById(id: string): Observable<Patient> {
     const url = `${this.patientUrl}/${id}`;
     return this.http.get<Patient>(url).pipe(
-      catchError(this.handleError<Patient>(`getPatient id=${id}`))
+      catchError(this.handleError)
     );
   }
 
   deletePatient(id: DeletePatientDTO): Observable<Patient> {
     const url = `${this.patientUrl}/${id}`;
     return this.http.delete<Patient>(url, this.httpOptions).pipe(
-      catchError(this.handleError<Patient>('deletePatient'))
+      catchError(this.handleError)
     );
   }
 
   addPatient(patientDto: CreatePatientDTO): Observable<Patient> {
     const patient = convertPatientDetails(patientDto);
     return this.http.post<Patient>(this.patientUrl, patient, this.httpOptions).pipe(
-      tap((newPatient: Patient) => console.log(`added patient id=${newPatient.id}`)),
-      catchError(this.handleError<Patient>('addPatient'))
+      catchError(this.handleError)
     );
   }
 
-  updatePatient(patient: UpdatePatientDTO): Observable<void> {
+  updatePatient(patient: UpdatePatientDTO): Observable<any> {
     return this.http.put(this.patientUrl, patient, this.httpOptions).pipe(
-      catchError(this.handleError<any>('updatePatient'))
+      catchError(this.handleError)
     );
   }
 
-  private handleError<T>(operation: string, result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+  private handleError(error: HttpErrorResponse) {
+
+    let errorMessage = '';
+
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+
+    console.log(errorMessage);
+
+    return throwError(errorMessage);
   }
 
 }
+

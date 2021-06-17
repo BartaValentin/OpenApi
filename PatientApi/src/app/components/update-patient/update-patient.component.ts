@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UpdatePatientDTO } from 'src/app/services/model/patient';
 import { Patient } from 'src/app/services/model/patient.model';
 import { PatientService } from 'src/app/services/patient.service';
-import { birthDateValidator } from 'src/app/services/validator/validator';
+import { birthDateValidator } from 'src/app/services/validator/patient.validator';
 
 @Component({
   selector: 'app-update-patient',
@@ -31,6 +31,10 @@ export class UpdatePatientComponent implements OnInit {
 
   getPatient(): void {
     const id = <string>this.route.snapshot.paramMap.get('id');
+
+    console.log('update component');
+    console.log(id)
+
     this.service.getPatientById(id).subscribe((patient) => {
       this.patient = patient,
         this.setFormGroup(this.patient)

@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CreatePatientDTO } from 'src/app/services/model/patient';
 import { PatientService } from 'src/app/services/patient.service';
-import { birthDateValidator } from 'src/app/services/validator/validator';
+import { birthDateValidator } from 'src/app/services/validator/patient.validator';
 
 @Component({
   selector: 'app-add-patient',

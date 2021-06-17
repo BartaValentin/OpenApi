@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UpdatePatientDTO } from 'src/app/services/patient/model/patient';
-import { Patient } from 'src/app/services/patient/model/patient.model';
-import { PatientService } from 'src/app/services/patient/patient.service';
+import { UpdatePatientDTO } from 'src/app/services/model/patient';
+import { Patient } from 'src/app/services/model/patient.model';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'app-update-patient',

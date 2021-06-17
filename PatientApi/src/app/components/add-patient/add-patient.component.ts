@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CreatePatientDTO } from 'src/app/services/patient/model/patient';
-import { PatientService } from 'src/app/services/patient/patient.service';
-import { birthDateValidator } from 'src/app/validator/validator';
+import { CreatePatientDTO } from 'src/app/services/model/patient';
+import { PatientService } from 'src/app/services/patient.service';
+import { birthDateValidator } from 'src/app/services/validator/validator';
 
 @Component({
   selector: 'app-add-patient',

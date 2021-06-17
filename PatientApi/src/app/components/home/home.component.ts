@@ -4,8 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Patient } from 'src/app/services/patient/model/patient.model';
-import { PatientService } from 'src/app/services/patient/patient.service';
+import { Patient } from 'src/app/services/model/patient.model';
+import { PatientService } from 'src/app/services/patient.service';
+
 
 @Component({
   selector: 'app-home',
@@ -14,8 +15,9 @@ import { PatientService } from 'src/app/services/patient/patient.service';
 })
 export class HomeComponent implements OnInit {
 
+  displayedColumns: string[] = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
+
   patients: Patient[] = [];
-  displayedColumns: string[] = [];
   datasource: MatTableDataSource<Patient>;
 
   constructor(
@@ -37,7 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   setPaginator(patients: Patient[]): void {
-    this.displayedColumns = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
     this.datasource = new MatTableDataSource(patients);
     this.datasource.sort = this.sort;
     this.datasource.paginator = this.paginator;

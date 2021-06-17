@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Patient } from 'src/app/services/patient/model/patient.model';
+import { Patient } from 'src/app/services/model/patient.model';
+
 
 @Component({
   selector: 'patient-search',

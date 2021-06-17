@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CreatePatientDTO } from 'src/app/services/patient/model/patient';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { birthDateValidator } from 'src/app/validator/validator';
 
 @Component({
   selector: 'app-add-patient',
@@ -19,7 +20,7 @@ export class AddPatientComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   succesCreate(name: string): void {
     this.snackBar.open('Successful creation', `Patient: ${name}`, {
@@ -30,7 +31,7 @@ export class AddPatientComponent implements OnInit {
 
   patientFormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-    birthdate: new FormControl('', [Validators.required]),
+    birthdate: new FormControl('', [Validators.required, birthDateValidator()]),
     sphere: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
     cylinder: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
     axis: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
@@ -58,8 +59,8 @@ export class AddPatientComponent implements OnInit {
         }
         break;
       case 'birthdate':
-        if (this.patientFormGroup.get('birthdate')!.hasError('required')) {
-          return 'The birthdate field is required!';
+        if (this.patientFormGroup.get('birthdate')!.hasError('required') || this.patientFormGroup.get('birthdate')!.hasError('invalidBirthdate')) {
+          return 'The birthdate field is required and the age must be bigger then 18 and lower then 100!';
         }
         break;
       case 'sphere':

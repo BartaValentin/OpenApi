@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private service: PatientService) {
+    private service: PatientService,
+    private snackBar: MatSnackBar) {
   }
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -49,13 +51,21 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  deletePatient(patient: PatientDetails): void {
-    if (confirm("Are you sure to delete? Selected Patient: " + patient.name)) {
-      const id: DeletePatientDTO = { id: patient.id };
-      this.patient_informations = this.patient_informations.filter(h => h !== patient);
-      this.service.deletePatient(id).subscribe();
-      this.getPatients();
+  deletePatient(patientDetails: PatientDetails): void {
+    if (confirm("Are you sure to delete? Selected Patient: " + patientDetails.name)) {
+      const deletedPatientIndex = this.patient_informations.findIndex(patient => patient.id === patientDetails.id);
+      this.patient_informations.splice(deletedPatientIndex,1);
+      this.setPaginator(this.patient_informations);
+      this.service.deletePatient( { id: patientDetails.id }).subscribe(() => {
+        this.succesDelete();
+      });
     }
+  }
+
+  succesDelete() {
+    this.snackBar.open('Successful delete', 'Patient', {
+      duration: 1000,
+    });
   }
 
   newPatient(): void {

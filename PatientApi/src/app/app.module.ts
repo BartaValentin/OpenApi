@@ -11,8 +11,8 @@ import { PatientService } from './services/patient/patient.service';
 import { PatientSearchComponent } from './components/search/patient-search.component';
 import { PatientDetailComponent } from './components/detail/patient-detail/patient-detail.component';
 import { HomeComponent } from './components/home/home.component';
-import { AddPatientComponent } from './components/add-patient/add-patient/add-patient.component';
 import { UpdatePatientComponent } from './components/update-patient/update-patient/update-patient.component';
+import { AddPatientComponent } from './components/add-patient/add-patient.component';
 
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { dataEncapsulation: false }
@@ -24,8 +24,8 @@ HttpClientInMemoryWebApiModule.forRoot(
     PatientSearchComponent,
     PatientDetailComponent,
     HomeComponent,
-    AddPatientComponent,
     UpdatePatientComponent,
+    AddPatientComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +33,7 @@ HttpClientInMemoryWebApiModule.forRoot(
     BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     SharedModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [ PatientService ],
   bootstrap: [AppComponent]

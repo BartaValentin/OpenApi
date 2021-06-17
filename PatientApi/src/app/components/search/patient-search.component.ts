@@ -15,7 +15,7 @@ export class PatientSearchComponent implements OnInit {
   myControl = new FormControl();
   options: Patient[] = [];
 
-  filteredOptions: Observable<Patient[]> | undefined;
+  filteredOptions: Observable<Patient[]>;
 
   constructor() {}
 

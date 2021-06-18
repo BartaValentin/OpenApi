@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
- 
+
 @Pipe({
   name: 'birthDate'
 })
-export class BirthDatePipe implements PipeTransform {
+export class PatientPipe implements PipeTransform {
  
   transform(value: Date): string {
     const age = this.calculateAge(value.toString());

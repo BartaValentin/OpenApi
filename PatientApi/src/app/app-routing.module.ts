@@ -5,7 +5,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
 import { PatientDetailComponent } from './components/patient-detail/patient-detail.component';
 import { UpdatePatientComponent } from './components/update-patient/update-patient.component';
-import { PatientGuardService } from './services/guard/patient.guard.service.';
+import { PatientGuard } from './services/guard/patient-guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +16,7 @@ const routes: Routes = [
     path: 'update/:id',
     component: UpdatePatientComponent,
     canActivate: [
-      PatientGuardService
+      PatientGuard
     ]
   },
   { path: 'error', component: ErrorComponent },

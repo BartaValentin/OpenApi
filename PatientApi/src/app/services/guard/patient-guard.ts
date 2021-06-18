@@ -1,12 +1,11 @@
-import { Injectable } from "@angular/core";
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { PatientService } from "../patient.service";
-
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { PatientService } from '../patient.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PatientGuardService implements CanActivate {
+export class PatientGuard implements CanActivate {
 
   constructor(
     private service: PatientService,
@@ -23,6 +22,5 @@ export class PatientGuardService implements CanActivate {
     });
     return true;
   }
-
 
 }

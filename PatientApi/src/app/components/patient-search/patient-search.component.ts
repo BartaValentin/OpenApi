@@ -10,7 +10,7 @@ import { Patient } from 'src/app/services/model/patient.model';
 })
 export class PatientSearchComponent implements OnInit {
 
-  @Output() event = new EventEmitter<string>();
+  @Output() output = new EventEmitter<string>();
   filteredOptions: Observable<Patient[]>;
 
   constructor() {}
@@ -19,7 +19,7 @@ export class PatientSearchComponent implements OnInit {
 
   emitParent(name: Event): void {
     const filteredValue = (name.target as HTMLInputElement).value;
-    this.event.emit(filteredValue);
+    this.output.emit(filteredValue);
   }
 
 }

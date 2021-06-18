@@ -48,6 +48,8 @@ export class HomeComponent implements OnInit {
     this.service.getPatients().subscribe(patients => {
       this.patients = patients;
       this.setPaginator(this.patients);
+    }, (error) => {
+      console.log(error);
     })
   }
 
@@ -58,6 +60,8 @@ export class HomeComponent implements OnInit {
       this.setPaginator(this.patients);
       this.service.deletePatient( { id: patientDetails.id }).subscribe(() => {
         this.succesDelete(patientDetails.name);
+      }, (error) => {
+        console.log(error);
       });
     }
   }

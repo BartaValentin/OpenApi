@@ -16,6 +16,7 @@ import { BirthDatePipe } from './services/pipe/patient.pipe.';
 import { PatientService } from './services/patient.service';
 import { ErrorComponent } from './components/error/error.component';
 import { PatientGuardService } from './services/guard/patient.guard.service.';
+import { PatientDirective } from './services/directive/patient.directive';
 
 HttpClientInMemoryWebApiModule.forRoot(
   InMemoryDataService, { dataEncapsulation: false }
@@ -30,7 +31,8 @@ HttpClientInMemoryWebApiModule.forRoot(
     UpdatePatientComponent,
     AddPatientComponent,
     BirthDatePipe,
-    ErrorComponent
+    ErrorComponent,
+    PatientDirective
   ],
   imports: [
     BrowserModule,

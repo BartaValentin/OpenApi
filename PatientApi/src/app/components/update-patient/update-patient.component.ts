@@ -70,6 +70,8 @@ export class UpdatePatientComponent implements OnInit {
     }
     this.service.updatePatient(this.patientDto).subscribe(() => {
       this.succesUpdate(this.patient.name);
+    }, (error) => {
+      console.log(error);
     });
   }
 
@@ -81,7 +83,7 @@ export class UpdatePatientComponent implements OnInit {
         }
         break;
       case 'birthdate':
-        if (this.patientFormGroup.get('birthdate').hasError('required')  || this.patientFormGroup.get('birthdate')!.hasError('invalidBirthdate')) {
+        if (this.patientFormGroup.get('birthdate').hasError('required') || this.patientFormGroup.get('birthdate')!.hasError('invalidBirthdate')) {
           return 'The birthdate field is required and the age must be bigger then 18 and lower then 100!';
         }
         break;

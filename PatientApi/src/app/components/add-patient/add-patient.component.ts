@@ -48,6 +48,8 @@ export class AddPatientComponent implements OnInit {
     }
     this.service.addPatient(this.patientDto).subscribe(() => {
       this.succesCreate(this.patientDto.name);
+    }, (error) => {
+      console.log(error);
     });
   }
 

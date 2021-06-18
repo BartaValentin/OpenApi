@@ -26,17 +26,17 @@
 
                 <ng-container matColumnDef="sphere">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Sphere </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.sphere }} </td>
+                    <td mat-cell *matCellDef="let element" appPatient> {{ element.sphere }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="cylinder">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Cylinder </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.cylinder }} </td>
+                    <td mat-cell *matCellDef="let element" appPatient> {{ element.cylinder }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="axis">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Axis </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.axis }} </td>
+                    <td mat-cell *matCellDef="let element" appPatient> {{ element.axis }} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="info">

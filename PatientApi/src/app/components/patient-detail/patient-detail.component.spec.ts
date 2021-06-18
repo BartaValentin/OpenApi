@@ -1,5 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { PatientService } from 'src/app/services/patient.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { PatientDetailComponent } from './patient-detail.component';
 
@@ -10,11 +12,13 @@ describe('PatientDetailComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [PatientDetailComponent],
-      imports: [SharedModule],
+      imports: [
+        SharedModule,
+        RouterTestingModule,
+        HttpClientTestingModule
+      ],
       providers: [
-        { provide: ActivatedRoute, useValue: '' },
-        { provide: Router },
-        { provide: Function },
+        PatientService
       ],
     })
       .compileComponents();

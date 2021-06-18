@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError, } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, throwError, } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { CreatePatientDTO, DeletePatientDTO, UpdatePatientDTO } from './model/patient';
 import { convertPatientDetails, Patient } from './model/patient.model';
 

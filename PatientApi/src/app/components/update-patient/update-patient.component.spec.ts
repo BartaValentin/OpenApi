@@ -5,6 +5,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { UpdatePatientComponent } from './update-patient.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UpdatePatientComponent', () => {
   let component: UpdatePatientComponent;
@@ -15,12 +16,11 @@ describe('UpdatePatientComponent', () => {
       declarations: [ UpdatePatientComponent ],
       imports: [ 
         SharedModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: PatientService},
-        { provide: Router },
-        { provide: Function },
       ],
     })
     .compileComponents();

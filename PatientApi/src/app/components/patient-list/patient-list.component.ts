@@ -15,14 +15,18 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PatientListComponent implements OnInit {
 
-  @Input() searchedName: string;
-
   displayedColumns: string[] = ['name', 'birthdate', 'sphere', 'cylinder', 'axis', 'edit', 'info', 'delete'];
   patients: Patient[] = [];
   datasource: MatTableDataSource<Patient>;
+  searchedName = '';
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @Input() set name(name: string) {
+    this.searchedName = name;
+    this.searchPatientByName(this.searchedName);
+  }
 
   constructor(
     private service: PatientService,
@@ -34,8 +38,8 @@ export class PatientListComponent implements OnInit {
     this.getPatients();
   }
 
-  public searchPatient(message: string): void {
-    const filteredPatients: Patient[] = this.patients.filter((patients: Patient) => patients.name.toLowerCase().startsWith(message));
+  private searchPatientByName(name: string): void {
+    const filteredPatients: Patient[] = this.patients.filter((patients: Patient) => patients.name.toLowerCase().startsWith(name));
     this.setPaginator(filteredPatients);
   }
 
@@ -73,10 +77,9 @@ export class PatientListComponent implements OnInit {
   private getPatients(): void {
     this.service.getPatients().subscribe(patients => {
       this.patients = patients;
-      console.log(this.patients.length);
       this.setPaginator(this.patients);
     }, (error) => {
-      console.log(error);
+      errorHandler(error);
     })
   }
 

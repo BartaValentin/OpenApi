@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CreatePatientDTO } from 'src/app/services/model/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { birthDateValidator } from 'src/app/services/validator/patient.validator';
+import { errorHandler } from '../error/error';
 
 @Component({
   selector: 'app-add-patient',
@@ -22,13 +23,6 @@ export class AddPatientComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  succesCreate(name: string): void {
-    this.snackBar.open('Successful creation', `Patient: ${name}`, {
-      duration: 2500,
-    });
-    this.router.navigate(['/']);
-  }
-
   patientFormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     birthdate: new FormControl('', [Validators.required, birthDateValidator()]),
@@ -38,7 +32,7 @@ export class AddPatientComponent implements OnInit {
   });
   patientDto: CreatePatientDTO;
 
-  createPatient(): void {
+  public createPatient(): void {
     this.patientDto = {
       name: this.patientFormGroup.get('name')!.value,
       birthdate: this.patientFormGroup.get('birthdate')!.value,
@@ -49,11 +43,11 @@ export class AddPatientComponent implements OnInit {
     this.service.addPatient(this.patientDto).subscribe(() => {
       this.succesCreate(this.patientDto.name);
     }, (error) => {
-      console.log(error);
+        errorHandler(error);
     });
   }
 
-  getError(attribute: string): string {
+  public getError(attribute: string): string {
     switch (attribute) {
       case 'name':
         if (this.patientFormGroup.get('name')!.hasError('required')) {
@@ -84,6 +78,13 @@ export class AddPatientComponent implements OnInit {
         return '';
     }
     return '';
+  }
+
+  private succesCreate(name: string): void {
+    this.snackBar.open('Successful creation', `Patient: ${name}`, {
+      duration: 2500,
+    });
+    this.router.navigate(['/']);
   }
 
 }

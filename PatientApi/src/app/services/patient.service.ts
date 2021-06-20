@@ -51,6 +51,7 @@ export class PatientService {
     );
   }
 
+
   private handleError(error: HttpErrorResponse) {
     
     let errorMessage = '';

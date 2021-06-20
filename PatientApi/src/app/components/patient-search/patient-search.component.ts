@@ -17,7 +17,7 @@ export class PatientSearchComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  emitParent(name: Event): void {
+  public emitParent(name: Event): void {
     const filteredValue = (name.target as HTMLInputElement).value;
     this.output.emit(filteredValue);
   }

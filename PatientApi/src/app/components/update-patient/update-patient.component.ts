@@ -30,37 +30,7 @@ export class UpdatePatientComponent implements OnInit {
     this.getPatient();
   }
 
-  getPatient(): void {
-    const id = <string>this.route.snapshot.paramMap.get('id');
-
-    console.log('update component');
-    console.log(id)
-
-    this.service.getPatientById(id).subscribe((patient) => {
-      this.patient = patient,
-        this.setFormGroup(this.patient)
-    });
-  }
-
-  setFormGroup(patient: Patient): void {
-    this.patientFormGroup = new FormGroup({
-      name: new FormControl(patient.name, [Validators.required, Validators.maxLength(50)]),
-      birthdate: new FormControl(new Date(patient.birthdate), [Validators.required, birthDateValidator()]),
-      sphere: new FormControl(patient.sphere, [Validators.required, Validators.min(0), Validators.max(15)]),
-      cylinder: new FormControl(patient.cylinder, [Validators.required, Validators.min(0), Validators.max(15)]),
-      axis: new FormControl(patient.axis, [Validators.required, Validators.min(0), Validators.max(15)]),
-    })
-  }
-
-  succesUpdate(name: string): void {
-    this.snackBar.open('Successful modification', `Patient ${name}`, {
-      duration: 2500,
-    });
-    this.router.navigate(['/']);
-  }
-
-  updatePatient(): void {
-
+  public updatePatient(): void {
     this.patientDto = {
       id: this.patient.id,
       name: this.patientFormGroup.get('name').value,
@@ -76,7 +46,7 @@ export class UpdatePatientComponent implements OnInit {
     });
   }
 
-  getError(attribute: string): string {
+  public getError(attribute: string): string {
     switch (attribute) {
       case 'name':
         if (this.patientFormGroup.get('name').hasError('required')) {
@@ -107,6 +77,33 @@ export class UpdatePatientComponent implements OnInit {
         return '';
     }
     return '';
+  }
+
+  private getPatient(): void {
+    const id = <string>this.route.snapshot.paramMap.get('id');
+    this.service.getPatientById(id).subscribe((patient) => {
+      this.patient = patient,
+        this.setFormGroup(this.patient)
+    }, (error) => {
+      errorHandler(error);
+    });
+  }
+
+  private setFormGroup(patient: Patient): void {
+    this.patientFormGroup = new FormGroup({
+      name: new FormControl(patient.name, [Validators.required, Validators.maxLength(50)]),
+      birthdate: new FormControl(new Date(patient.birthdate), [Validators.required, birthDateValidator()]),
+      sphere: new FormControl(patient.sphere, [Validators.required, Validators.min(0), Validators.max(15)]),
+      cylinder: new FormControl(patient.cylinder, [Validators.required, Validators.min(0), Validators.max(15)]),
+      axis: new FormControl(patient.axis, [Validators.required, Validators.min(0), Validators.max(15)]),
+    })
+  }
+
+  private succesUpdate(name: string): void {
+    this.snackBar.open('Successful modification', `Patient ${name}`, {
+      duration: 2500,
+    });
+    this.router.navigate(['/']);
   }
 
 }

@@ -23,17 +23,17 @@ export class PatientDetailComponent implements OnInit {
     this.getPatient();
   }
 
-  getPatient(): void {
+  public goBack(): void {
+    this.router.navigate(['/']);
+  }
+
+  private getPatient(): void {
     const id = <string>this.route.snapshot.paramMap.get('id');
     this.service.getPatientById(id).subscribe((patient) => {
       this.patient = patient
     }, (error) => {
       errorHandler(error);
     });
-  }
-
-  goBack(): void {
-    this.router.navigate(['/']);
   }
 
 }

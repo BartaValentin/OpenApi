@@ -39,7 +39,7 @@ export class PatientListComponent implements OnInit {
   }
 
   private searchPatientByName(name: string): void {
-    const filteredPatients: Patient[] = this.patients.filter((patients: Patient) => patients.name.toLowerCase().startsWith(name));
+    const filteredPatients: Patient[] = this.patients.filter((patients: Patient) => patients.name.toLowerCase().includes(name));
     this.setPaginator(filteredPatients);
   }
 

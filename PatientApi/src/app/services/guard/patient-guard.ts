@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { PatientService } from '../patient.service';
 
 @Injectable({
@@ -12,14 +12,9 @@ export class PatientGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<UrlTree> {
     const id: string = <string> route.paramMap.get('id');
-    this.service.getPatientById(id).subscribe(() => {
-      this.router.navigate([state.url]);
-    },(error) => {
-      console.log(error),
-      this.router.navigate(['/error']);
-    });
+    this.service.getPatientById(id).subscribe(() => { },() => { this.router.navigate(['/error']); });
     return true;
   }
 

@@ -16,7 +16,7 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
-  getPatients(): Observable<Patient[]> {
+  public getPatients(): Observable<Patient[]> {
     return this.http
       .get<Patient[]>(this.patientUrl)
       .pipe(
@@ -24,35 +24,35 @@ export class PatientService {
       );
   }
 
-  getPatientById(id: string): Observable<Patient> {
+  public getPatientById(id: string): Observable<Patient> {
     const url = `${this.patientUrl}/${id}`;
     return this.http.get<Patient>(url).pipe(
       catchError(this.handleError)
     );
   }
 
-  deletePatient(id: DeletePatientDTO): Observable<Patient> {
-    const url = `${this.patientUrl}/${id}`;
+  public deletePatient(patient: DeletePatientDTO): Observable<Patient> {
+    const url = `${this.patientUrl}/${patient.id}`;
     return this.http.delete<Patient>(url, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  addPatient(patientDto: CreatePatientDTO): Observable<Patient> {
+  public addPatient(patientDto: CreatePatientDTO): Observable<Patient> {
     const patient = convertPatientDetails(patientDto);
     return this.http.post<Patient>(this.patientUrl, patient, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
-  updatePatient(patient: UpdatePatientDTO): Observable<any> {
+  public updatePatient(patient: UpdatePatientDTO): Observable<any> {
     return this.http.put(this.patientUrl, patient, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }
 
   private handleError(error: HttpErrorResponse) {
-
+    
     let errorMessage = '';
 
     if (error.error instanceof ErrorEvent) {

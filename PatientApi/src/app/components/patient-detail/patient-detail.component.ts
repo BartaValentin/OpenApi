@@ -1,8 +1,8 @@
 import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { errorHandler } from 'src/app/services/errorHandler/error';
 import { Patient } from 'src/app/services/model/patient.model';
 import { PatientService } from 'src/app/services/patient.service';
-
 
 @Component({
   selector: 'app-patient-detail',
@@ -28,7 +28,7 @@ export class PatientDetailComponent implements OnInit {
     this.service.getPatientById(id).subscribe((patient) => {
       this.patient = patient
     }, (error) => {
-      console.log(error);
+      errorHandler(error);
     });
   }
 

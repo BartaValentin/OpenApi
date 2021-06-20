@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { errorHandler } from 'src/app/services/errorHandler/error';
 import { UpdatePatientDTO } from 'src/app/services/model/patient';
 import { Patient } from 'src/app/services/model/patient.model';
 import { PatientService } from 'src/app/services/patient.service';
@@ -71,7 +72,7 @@ export class UpdatePatientComponent implements OnInit {
     this.service.updatePatient(this.patientDto).subscribe(() => {
       this.succesUpdate(this.patient.name);
     }, (error) => {
-      console.log(error);
+      errorHandler(error);
     });
   }
 

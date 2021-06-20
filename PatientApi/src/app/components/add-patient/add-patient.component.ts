@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { CreatePatientDTO } from 'src/app/services/model/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { birthDateValidator } from 'src/app/services/validator/patient.validator';
-import { errorHandler } from '../error/error';
+import { errorHandler } from '../../services/errorHandler/error';
 
 @Component({
   selector: 'app-add-patient',

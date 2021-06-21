@@ -47,15 +47,15 @@ export class PatientListComponent implements OnInit {
   public deletePatient(patient: Patient): void {
     if (confirm("Are you sure to delete? Selected Patient: " + patient.name)) {
       this.service.deletePatient({ id: patient.id }).subscribe((patient: Patient) => {
-        this.succesDelete(patient.name);
+        this.succesDelete();
       }, (error) => {
         errorHandler(error);
       });
     }
   }
 
-  private succesDelete(name: string): void {
-    this.snackBar.open('Successful delete', `Patient: ${name}`, {
+  private succesDelete(): void {
+    this.snackBar.open('Successful delete', `Patient`, {
       duration: 2500,
     });
     this.getPatients();
@@ -77,7 +77,7 @@ export class PatientListComponent implements OnInit {
 
   public getPatients(): void {
     this.service.getPatients().subscribe((patients: Patient[]) => {
-      this.patients = patients;
+      this.patients = patients.filter((patient) => patient != null);
       this.setPaginator(this.patients);
     }, (error) => {
       errorHandler(error);

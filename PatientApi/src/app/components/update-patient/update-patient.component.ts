@@ -18,6 +18,7 @@ export class UpdatePatientComponent implements OnInit {
   patientDto: UpdatePatientDTO;
   patient: Patient;
   patientFormGroup: FormGroup;
+  id: string;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -30,20 +31,15 @@ export class UpdatePatientComponent implements OnInit {
     this.getPatient();
   }
 
-  public updatePatient(): void {
-    this.patientDto = {
-      id: this.patient.id,
-      name: this.patientFormGroup.get('name').value,
-      birthdate: this.patientFormGroup.get('birthdate').value,
-      sphere: this.patientFormGroup.get('sphere').value,
-      cylinder: this.patientFormGroup.get('cylinder').value,
-      axis: this.patientFormGroup.get('axis').value,
+  public updatePatient(form: FormGroup): void {
+    if (form.valid) {
+      this.patientDto = { ...form.value, id: this.id};
+      this.service.updatePatient(this.patientDto).subscribe(() => {
+        this.succesUpdate(this.patient.name);
+      }, (error) => {
+        errorHandler(error);
+      });
     }
-    this.service.updatePatient(this.patientDto).subscribe(() => {
-      this.succesUpdate(this.patient.name);
-    }, (error) => {
-      errorHandler(error);
-    });
   }
 
   public getError(attribute: string): string {
@@ -80,8 +76,8 @@ export class UpdatePatientComponent implements OnInit {
   }
 
   private getPatient(): void {
-    const id = <string>this.route.snapshot.paramMap.get('id');
-    this.service.getPatientById(id).subscribe((patient: Patient) => {
+    this.id = <string> this.route.snapshot.paramMap.get('id');
+    this.service.getPatientById(this.id).subscribe((patient: Patient) => {
       this.patient = patient,
         this.setFormGroup(this.patient)
     }, (error) => {

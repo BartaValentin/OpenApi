@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { PatientService } from 'src/app/services/patient.service';
 import { SharedModule } from 'src/shared/shared.module';
@@ -31,7 +31,8 @@ describe('PatientDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
+
 });

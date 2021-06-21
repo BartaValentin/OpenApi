@@ -52,7 +52,7 @@
         </div>
         <div>
             <button routerLink="/" mat-raised-button>Back</button>
-            <button color="primary" [disabled]="!patientFormGroup.valid" (click)="updatePatient()" mat-raised-button>Update</button>
+            <button color="primary" [disabled]="!patientFormGroup.valid" (click)="updatePatient(patientFormGroup)" mat-raised-button>Update</button>
         </div>
     </form>
 

@@ -6,9 +6,6 @@
         <div align="right">
             <patient-search (output)="searchPatientByName($event)"></patient-search>
         </div>
-        <div align="center">
-            <mat-card-title>Patient list</mat-card-title>
-        </div> 
     </mat-card>
     <div align="center">
         <app-patient-list [name]="searchedName"></app-patient-list>

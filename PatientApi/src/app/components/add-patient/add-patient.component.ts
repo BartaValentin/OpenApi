@@ -32,19 +32,15 @@ export class AddPatientComponent implements OnInit {
   });
   patientDto: CreatePatientDTO;
 
-  public createPatient(): void {
-    this.patientDto = {
-      name: this.patientFormGroup.get('name')!.value,
-      birthdate: this.patientFormGroup.get('birthdate')!.value,
-      sphere: this.patientFormGroup.get('sphere')!.value,
-      cylinder: this.patientFormGroup.get('cylinder')!.value,
-      axis: this.patientFormGroup.get('axis')!.value,
+  public createPatient(form: FormGroup): void {
+    if (form.valid) {
+      this.patientDto = { ...form.value};
+      this.service.addPatient(this.patientDto).subscribe(() => {
+        this.succesCreate(this.patientDto.name);
+      }, (error) => {
+          errorHandler(error);
+      });
     }
-    this.service.addPatient(this.patientDto).subscribe(() => {
-      this.succesCreate(this.patientDto.name);
-    }, (error) => {
-        errorHandler(error);
-    });
   }
 
   public getError(attribute: string): string {

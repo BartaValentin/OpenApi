@@ -52,7 +52,7 @@ export class PatientService {
   }
 
 
-  private handleError(error: HttpErrorResponse) {
+  public handleError(error: HttpErrorResponse) {
     
     let errorMessage = '';
 

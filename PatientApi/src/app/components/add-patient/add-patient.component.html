@@ -52,7 +52,7 @@
         </div>
         <div>
             <button routerLink="/" mat-raised-button>Back</button>
-            <button color="primary" [disabled]="!patientFormGroup.valid" (click)="createPatient()" mat-raised-button>Create</button>
+            <button color="primary" [disabled]="!patientFormGroup.valid" (click)="createPatient(patientFormGroup)" mat-raised-button>Create</button>
         </div>
     </form>
 

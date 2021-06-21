@@ -19,6 +19,7 @@ export class PatientListComponent implements OnInit {
   patients: Patient[] = [];
   datasource: MatTableDataSource<Patient>;
   searchedName = '';
+  title: string = 'Patient list';
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -74,7 +75,7 @@ export class PatientListComponent implements OnInit {
     this.datasource.paginator = this.paginator;
   }
 
-  private getPatients(): void {
+  public getPatients(): void {
     this.service.getPatients().subscribe((patients: Patient[]) => {
       this.patients = patients;
       this.setPaginator(this.patients);

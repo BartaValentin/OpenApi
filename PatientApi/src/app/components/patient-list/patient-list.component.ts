@@ -45,7 +45,7 @@ export class PatientListComponent implements OnInit {
 
   public deletePatient(patient: Patient): void {
     if (confirm("Are you sure to delete? Selected Patient: " + patient.name)) {
-      this.service.deletePatient({ id: patient.id }).subscribe((p) => {
+      this.service.deletePatient({ id: patient.id }).subscribe((patient: Patient) => {
         this.succesDelete(patient.name);
       }, (error) => {
         errorHandler(error);
@@ -75,7 +75,7 @@ export class PatientListComponent implements OnInit {
   }
 
   private getPatients(): void {
-    this.service.getPatients().subscribe(patients => {
+    this.service.getPatients().subscribe((patients: Patient[]) => {
       this.patients = patients;
       this.setPaginator(this.patients);
     }, (error) => {

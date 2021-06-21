@@ -10,8 +10,14 @@ import { PatientGuard } from './services/guard/patient-guard';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'details/:id', component: PatientDetailComponent },
   { path: 'add', component: AddPatientComponent },
+  { 
+    path: 'details/:id',
+    component: PatientDetailComponent,
+    canActivate: [
+      PatientGuard
+    ]
+  },
   {
     path: 'update/:id',
     component: UpdatePatientComponent,

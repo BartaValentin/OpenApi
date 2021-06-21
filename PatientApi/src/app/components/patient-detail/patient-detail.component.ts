@@ -29,7 +29,7 @@ export class PatientDetailComponent implements OnInit {
 
   private getPatient(): void {
     const id = <string>this.route.snapshot.paramMap.get('id');
-    this.service.getPatientById(id).subscribe((patient) => {
+    this.service.getPatientById(id).subscribe((patient: Patient) => {
       this.patient = patient
     }, (error) => {
       errorHandler(error);

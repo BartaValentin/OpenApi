@@ -12,9 +12,17 @@ export class PatientGuard implements CanActivate {
     private router: Router
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Promise<UrlTree> {
+  canActivate(route: ActivatedRouteSnapshot): boolean | Promise<UrlTree> {
     const id: string = <string> route.paramMap.get('id');
-    this.service.getPatientById(id).subscribe(() => { },() => { this.router.navigate(['/error']); });
+    
+    this.service.getPatientById(id).subscribe((succes) => {
+      console.log(succes)
+    },(error) => {
+      console.log(error)
+      this.router.navigate(['/error']);
+      return false;
+    });
+
     return true;
   }
 

@@ -1,12 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupName, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CreatePatientDTO } from 'src/app/services/model/patient';
 import { PatientService } from 'src/app/services/patient.service';
 import { birthDateValidator } from 'src/app/services/validator/patient.validator';
-import { errorHandler } from '../../services/errorHandler/error';
+import { errorHandler, ErrorType } from '../../services/errorHandler/error';
 
 @Component({
   selector: 'app-add-patient',
@@ -24,7 +24,7 @@ export class AddPatientComponent implements OnInit {
   ngOnInit(): void { }
 
   patientFormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]),
     birthdate: new FormControl('', [Validators.required, birthDateValidator()]),
     sphere: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
     cylinder: new FormControl('', [Validators.required, Validators.min(0), Validators.max(15)]),
@@ -43,30 +43,30 @@ export class AddPatientComponent implements OnInit {
     }
   }
 
-  public getError(attribute: string): string {
-    switch (attribute) {
+  public getError(errorType: ErrorType, form: FormGroup): string {
+    switch (errorType) {
       case 'name':
-        if (this.patientFormGroup.get('name')!.hasError('required')) {
-          return 'The name field is required!!';
+        if (form.get('name')!.hasError('required')) {
+          return 'The name field is required!';
         }
         break;
       case 'birthdate':
-        if (this.patientFormGroup.get('birthdate')!.hasError('required') || this.patientFormGroup.get('birthdate')!.hasError('invalidBirthdate')) {
+        if (form.get('birthdate')!.hasError('required') || form.get('birthdate')!.hasError('invalidBirthdate')) {
           return 'The birthdate field is required and the age must be bigger then 18 and lower then 100!';
         }
         break;
       case 'sphere':
-        if (this.patientFormGroup.get('sphere')!.hasError('required')) {
+        if (form.get('sphere')!.hasError('required')) {
           return 'The sphere field is required! Min: 0, Max: 15';
         }
         break;
       case 'cylinder':
-        if (this.patientFormGroup.get('cylinder')!.hasError('required')) {
+        if (form.get('cylinder')!.hasError('required')) {
           return 'The cylinder field is required! Min: 0, Max: 15';
         }
         break;
       case 'axis':
-        if (this.patientFormGroup.get('axis')!.hasError('required')) {
+        if (form.get('axis')!.hasError('required')) {
           return 'The axis field is required! Min: 0, Max: 15';
         }
         break;
@@ -75,6 +75,8 @@ export class AddPatientComponent implements OnInit {
     }
     return '';
   }
+
+
 
   private succesCreate(name: string): void {
     this.snackBar.open('Successful creation', `Patient: ${name}`, {
